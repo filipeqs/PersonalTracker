@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistance.Data;
+using Persistance.Repositories;
+using Persistance.Repositories.Contracts;
 
 namespace Persistance
 {
@@ -11,6 +13,11 @@ namespace Persistance
         {
             services.AddDbContext<DataDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DataConnectionString")));
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
