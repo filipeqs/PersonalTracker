@@ -15,13 +15,17 @@ namespace Persistance.Data.Configurations
                 {
                     Id = 1,
                     Name = "Leg Press",
-                    Description = "This is the description for Leg Press"
+                    Description = "This is the description for Leg Press",
+                    CreatedBy = "SYSTEM",
+                    LastModifiedBy = "SYSTEM"
                 },
                 new Exercise
                 {
                     Id = 2,
                     Name = "Deadlift",
-                    Description = "This is the description for Deadlift"
+                    Description = "This is the description for Deadlift",
+                    CreatedBy = "SYSTEM",
+                    LastModifiedBy = "SYSTEM"
                 }
             );
         }

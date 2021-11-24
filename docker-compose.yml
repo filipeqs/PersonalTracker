@@ -1,0 +1,9 @@
+services:
+  SQLServer_Data:
+    container_name: SQLServer_Data
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0rd!
