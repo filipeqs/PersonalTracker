@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ExerciseList } from '../shared/models/exercises';
+import { ExercisesService } from './exercises.service';
 
 @Component({
     selector: 'app-exercises',
@@ -6,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./exercises.component.scss'],
 })
 export class ExercisesComponent implements OnInit {
-    constructor() {}
+    exercises: ExerciseList[];
 
-    ngOnInit(): void {}
+    constructor(private exerciseService: ExercisesService) {}
+
+    ngOnInit(): void {
+        this.exerciseService.getExercises().subscribe((exercises) => {
+            this.exercises = exercises;
+        });
+    }
 }
