@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ExerciseList } from '../shared/models/exercises';
 import { ExercisesService } from './exercises.service';
 
@@ -8,13 +9,13 @@ import { ExercisesService } from './exercises.service';
     styleUrls: ['./exercises.component.scss'],
 })
 export class ExercisesComponent implements OnInit {
-    exercises: ExerciseList[];
+    exercises$: Observable<ExerciseList[]>;
 
     constructor(private exerciseService: ExercisesService) {}
 
     ngOnInit(): void {
-        this.exerciseService.getExercises().subscribe((exercises) => {
-            this.exercises = exercises;
-        });
+        this.exercises$ = this.exerciseService.exercises$;
+
+        this.exerciseService.getExercises().subscribe();
     }
 }
