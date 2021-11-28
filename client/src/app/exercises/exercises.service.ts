@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { ExerciseList } from '../shared/models/exercises';
+import { ExerciseDetails, ExerciseList } from '../shared/models/exercises';
 
 @Injectable({
     providedIn: 'root',
@@ -24,5 +24,9 @@ export class ExercisesService {
                 this.exercisesSource.next(exercises);
             }),
         );
+    }
+
+    getExerciseDetails(id: number) {
+        return this.http.get<ExerciseDetails>(`${this.baseApiUrl}/exercises/${id}`);
     }
 }
