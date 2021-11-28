@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Exercise;
+﻿using Application.Commands.Exercises.CreateExercise;
+using Application.Dtos.Exercise;
 using Application.Queries.Exercises.GetExerciseDetailsById;
 using Application.Queries.Exercises.GetExerciseList;
 using MediatR;
@@ -30,7 +31,21 @@ namespace Api.Controllers
         {
             var query = new GetExerciseDetailsByIdQuery(id);
             var exercises = await _mediator.Send(query);
-            return (exercises);
+            return Ok(exercises);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CreateExerciseDto>> Create(CreateExerciseDto createExerciseDto)
+        {
+            var command = new CreateExerciseCommand(createExerciseDto);
+            var exercise = await _mediator.Send(command);
+
+            if (exercise == null)
+            {
+                return BadRequest("Error creating exercise");
+            }
+
+            return Ok(exercise);
         }
     }
 }
