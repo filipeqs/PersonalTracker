@@ -1,2 +1,3 @@
-<div *ngIf="exercise">{{ exercise.name }}</div>
-<div *ngIf="!exercise">No Exercise found</div>
+<div *ngIf="exercise && !loading">{{ exercise.name }}</div>
+<div *ngIf="!exercise && !loading">No Exercise found</div>
+<div *ngIf="loading">Loading...</div>
