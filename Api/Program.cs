@@ -1,3 +1,4 @@
+using Api.Middleware;
 using Application;
 using Microsoft.AspNetCore.Mvc;
 using Persistance;
@@ -36,6 +37,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("CorsPolicy");
 
