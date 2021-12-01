@@ -16,47 +16,47 @@ export class TestErrorComponent implements OnInit {
     ngOnInit(): void {}
 
     get404Error() {
-        this.http.get(this.baseUrl + '/exercises/500').subscribe(
-            (response) => {
+        this.http.get(this.baseUrl + '/exercises/500').subscribe({
+            next: (response) => {
                 console.log(response);
             },
-            (error) => {
+            error: (error) => {
                 console.log(error);
             },
-        );
+        });
     }
 
     get500Error() {
-        this.http.get(this.baseUrl + '/buggy/servererror').subscribe(
-            (response) => {
+        this.http.get(this.baseUrl + '/buggy/servererror').subscribe({
+            next: (response) => {
                 console.log(response);
             },
-            (error) => {
+            error: (error) => {
                 console.log(error);
             },
-        );
+        });
     }
 
     get400Error() {
-        this.http.get(this.baseUrl + '/buggy/badrequest').subscribe(
-            (response) => {
+        this.http.get(this.baseUrl + '/buggy/badrequest').subscribe({
+            next: (response) => {
                 console.log(response);
             },
-            (error) => {
+            error: (error) => {
                 console.log(error);
             },
-        );
+        });
     }
 
     get400ValidationError() {
-        this.http.get(this.baseUrl + '/exercises/fortytwo').subscribe(
-            (response) => {
+        this.http.get(this.baseUrl + '/exercises/fortytwo').subscribe({
+            next: (response) => {
                 console.log(response);
             },
-            (error) => {
+            error: (error) => {
                 console.log(error);
                 this.validationErrors = error.errors;
             },
-        );
+        });
     }
 }

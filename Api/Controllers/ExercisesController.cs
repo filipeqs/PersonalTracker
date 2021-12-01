@@ -1,4 +1,5 @@
-﻿using Application.Commands.Exercises.CreateExercise;
+﻿using Api.Errors;
+using Application.Commands.Exercises.CreateExercise;
 using Application.Dtos.Exercise;
 using Application.Queries.Exercises.GetExerciseDetailsById;
 using Application.Queries.Exercises.GetExerciseList;
@@ -31,6 +32,10 @@ namespace Api.Controllers
         {
             var query = new GetExerciseDetailsByIdQuery(id);
             var exercises = await _mediator.Send(query);
+
+            if (exercises == null)
+                return NotFound(new ApiErrorResponse(404));
+
             return Ok(exercises);
         }
 
