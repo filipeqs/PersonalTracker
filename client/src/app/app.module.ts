@@ -4,11 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavBarComponent } from './core/nav-bar/nav-bar.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
-    declarations: [AppComponent, NavBarComponent],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+    declarations: [AppComponent],
+    imports: [CoreModule, BrowserModule, AppRoutingModule, HttpClientModule],
     providers: [],
     bootstrap: [AppComponent],
 })
