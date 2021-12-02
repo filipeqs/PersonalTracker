@@ -22,5 +22,8 @@
             formControlName="description"
         ></textarea>
     </div>
-    <button type="submit" class="btn btn-success" [disabled]="!exerciseForm.valid">Create</button>
+    <button type="submit" class="btn btn-success" [disabled]="!exerciseForm.valid || loading">
+        <span *ngIf="!loading">Create</span>
+        <span *ngIf="loading">Loading</span>
+    </button>
 </form>
