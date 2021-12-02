@@ -18,9 +18,15 @@ export class ExerciseDetailsComponent implements OnInit {
         this.loading = true;
         this.route.paramMap.subscribe((params) => {
             const id = +params.get('id');
-            this.exerciseService.getExerciseDetails(id).subscribe((exercise) => {
-                this.loading = false;
-                this.exercise = exercise;
+            this.exerciseService.getExerciseDetails(id).subscribe({
+                next: (exercise) => {
+                    this.loading = false;
+                    this.exercise = exercise;
+                },
+                error: (error) => {
+                    this.loading = false;
+                    console.log(error);
+                },
             });
         });
     }

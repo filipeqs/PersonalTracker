@@ -13,6 +13,6 @@ namespace Application.Commands.Exercises.CreateExercise
         public CreateExerciseDto CreateExerciseDto { get; }
         public bool Success { get; set; } = true;
         public List<string> Errors { get; set; }
-        public CreateExerciseDto Exercise { get; set; }
+        public ExerciseDetailsDto Exercise { get; set; }
     }
 }

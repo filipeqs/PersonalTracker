@@ -40,7 +40,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CreateExerciseDto>> Create(CreateExerciseDto createExerciseDto)
+        public async Task<ActionResult<ExerciseDetailsDto>> Create(CreateExerciseDto createExerciseDto)
         {
             var command = new CreateExerciseCommand(createExerciseDto);
             await _mediator.Send(command);

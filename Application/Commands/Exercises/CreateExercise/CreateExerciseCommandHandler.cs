@@ -35,7 +35,7 @@ namespace Application.Commands.Exercises.CreateExercise
             _dbContext.Add(exercise);
             await _dbContext.SaveChangesAsync();
 
-            request.Exercise = _mapper.Map<CreateExerciseDto>(exercise);
+            request.Exercise = _mapper.Map<ExerciseDetailsDto>(exercise);
 
             return Unit.Value;
         }

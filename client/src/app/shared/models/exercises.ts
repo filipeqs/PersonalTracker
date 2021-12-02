@@ -8,3 +8,8 @@ export interface ExerciseDetails {
     name: string;
     description: string;
 }
+
+export interface ExerciseCreate {
+    name: string;
+    description: string;
+}

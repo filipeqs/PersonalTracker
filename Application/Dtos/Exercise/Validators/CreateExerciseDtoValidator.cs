@@ -8,6 +8,7 @@ namespace Application.Dtos.Exercise.Validators
         {
             RuleFor(x => x.Id).Empty().WithMessage("Can't have an {PropertyName}");
             RuleFor(x => x.Name).NotEmpty().WithMessage("{PropertyName} must be present.");
+            RuleFor(x => x.Description).NotNull().WithMessage("{PropertyName} must be present.");
         }
     }
 }
