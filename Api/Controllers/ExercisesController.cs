@@ -43,14 +43,12 @@ namespace Api.Controllers
         public async Task<ActionResult<CreateExerciseDto>> Create(CreateExerciseDto createExerciseDto)
         {
             var command = new CreateExerciseCommand(createExerciseDto);
-            var exercise = await _mediator.Send(command);
+            await _mediator.Send(command);
 
-            if (exercise == null)
-            {
-                return BadRequest("Error creating exercise");
-            }
+            if (command.Success == false)
+                return BadRequest(new ApiValidationErrorResponse(command.Errors));
 
-            return Ok(exercise);
+            return Ok(command.Exercise);
         }
     }
 }

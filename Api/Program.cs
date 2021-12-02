@@ -22,10 +22,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
             .SelectMany(q => q.Value.Errors)
             .Select(q => q.ErrorMessage).ToArray();
 
-        var errorResponse = new ApiValidationErrorResponse
-        {
-            Errors = errors
-        };
+        var errorResponse = new ApiValidationErrorResponse(errors);
 
         return new BadRequestObjectResult(errorResponse);
     };

@@ -7,7 +7,7 @@ using Persistance.Data;
 
 namespace Application.Commands.Exercises.CreateExercise
 {
-    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, CreateExerciseDto>
+    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, Unit>
     {
         private readonly DataDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -18,14 +18,16 @@ namespace Application.Commands.Exercises.CreateExercise
             _mapper = mapper;
         }
 
-        public async Task<CreateExerciseDto> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateExerciseDtoValidator();
             var validationResult = validator.Validate(request.CreateExerciseDto);
 
             if (validationResult.IsValid == false)
             {
-                return null;
+                request.Success = false;
+                request.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                return Unit.Value;
             }
 
             var exercise = _mapper.Map<Exercise>(request.CreateExerciseDto);
@@ -33,7 +35,9 @@ namespace Application.Commands.Exercises.CreateExercise
             _dbContext.Add(exercise);
             await _dbContext.SaveChangesAsync();
 
-            return _mapper.Map<CreateExerciseDto>(exercise);
+            request.Exercise = _mapper.Map<CreateExerciseDto>(exercise);
+
+            return Unit.Value;
         }
     }
 }
