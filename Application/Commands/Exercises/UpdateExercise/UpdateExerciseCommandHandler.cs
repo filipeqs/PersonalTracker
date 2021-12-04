@@ -31,7 +31,15 @@ namespace Application.Commands.Exercises.UpdateExercise
                 return Unit.Value;
             }
             
-            var exercise = _mapper.Map<Exercise>(request.UpdateExerciseDto);
+            var exercise = await _dbContext.Exercises.FirstOrDefaultAsync(q => q.Id == request.UpdateExerciseDto.Id);
+            if (exercise == null)
+            {
+                request.Success = false;
+                request.Errors = new List<string> { "Exercise not found!" };
+                return Unit.Value;
+            }
+
+            _mapper.Map(request.UpdateExerciseDto, exercise);
 
             _dbContext.Entry(exercise).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();

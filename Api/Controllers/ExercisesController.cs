@@ -1,5 +1,6 @@
 ﻿using Api.Errors;
 using Application.Commands.Exercises.CreateExercise;
+using Application.Commands.Exercises.UpdateExercise;
 using Application.Dtos.Exercise;
 using Application.Queries.Exercises.GetExerciseDetailsById;
 using Application.Queries.Exercises.GetExerciseList;
@@ -46,6 +47,18 @@ namespace Api.Controllers
             await _mediator.Send(command);
 
             if (command.Success == false)
+                return BadRequest(new ApiValidationErrorResponse(command.Errors));
+
+            return Ok(command.Exercise);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ExerciseDetailsDto>> Update(UpdateExerciseDto updateExerciseDto)
+        {
+            var command = new UpdateExerciseCommand(updateExerciseDto);
+            await _mediator.Send(command);
+
+            if (command?.Success == false)
                 return BadRequest(new ApiValidationErrorResponse(command.Errors));
 
             return Ok(command.Exercise);

@@ -11,6 +11,7 @@ namespace Application.Profiles
             CreateMap<Exercise, ExerciseDetailsDto>().ReverseMap();
             CreateMap<Exercise, ExerciseListDto>().ReverseMap();
             CreateMap<Exercise, CreateExerciseDto>().ReverseMap();
+            CreateMap<Exercise, UpdateExerciseDto>().ReverseMap();
         }
     }
 }
