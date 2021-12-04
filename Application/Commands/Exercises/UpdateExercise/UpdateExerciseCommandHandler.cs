@@ -4,24 +4,25 @@ using AutoMapper;
 using Domain;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistance.Data;
 
-namespace Application.Commands.Exercises.CreateExercise
+namespace Application.Commands.Exercises.UpdateExercise
 {
-    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, Unit>
+    public class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseCommand, Unit>
     {
         private readonly DataDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public CreateExerciseCommandHandler(DataDbContext dbContext, IMapper mapper)
+        public UpdateExerciseCommandHandler(DataDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateExerciseCommand request, CancellationToken cancellationToken)
         {
-            var validationResult = ValidateCommand(request.CreateExerciseDto);
+            var validationResult = ValidateCommand(request.UpdateExerciseDto);
 
             if (validationResult.IsValid == false)
             {
@@ -29,10 +30,10 @@ namespace Application.Commands.Exercises.CreateExercise
                 request.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
                 return Unit.Value;
             }
+            
+            var exercise = _mapper.Map<Exercise>(request.UpdateExerciseDto);
 
-            var exercise = _mapper.Map<Exercise>(request.CreateExerciseDto);
-
-            _dbContext.Add(exercise);
+            _dbContext.Entry(exercise).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
 
             request.Exercise = _mapper.Map<ExerciseDetailsDto>(exercise);
@@ -40,10 +41,10 @@ namespace Application.Commands.Exercises.CreateExercise
             return Unit.Value;
         }
 
-        private ValidationResult ValidateCommand(CreateExerciseDto createExerciseDto)
+        private ValidationResult ValidateCommand(UpdateExerciseDto updateExerciseDto)
         {
-            var validator = new CreateExerciseDtoValidator();
-            return validator.Validate(createExerciseDto);
+            var validator = new UpdateExerciseDtoValidator();
+            return validator.Validate(updateExerciseDto);
         }
     }
 }
