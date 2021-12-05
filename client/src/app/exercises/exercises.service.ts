@@ -2,7 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { ExerciseCreate, ExerciseDetails, ExerciseList } from '../shared/models/exercises';
+import {
+    ExerciseCreate,
+    ExerciseDetails,
+    ExerciseList,
+    ExerciseUpdate,
+} from '../shared/models/exercises';
 
 @Injectable({
     providedIn: 'root',
@@ -31,12 +36,10 @@ export class ExercisesService {
     }
 
     createExercise(exercise: ExerciseCreate) {
-        return this.http.post<ExerciseDetails>(`${this.baseApiUrl}/exercises`, exercise).pipe(
-            map((newExercise) => {
-                const currentExercises = this.getCurrentExercises();
-                currentExercises.push(newExercise);
-                this.exercisesSource.next(currentExercises);
-            }),
-        );
+        return this.http.post<ExerciseDetails>(`${this.baseApiUrl}/exercises`, exercise);
+    }
+
+    updateExercise(exercise: ExerciseUpdate) {
+        return this.http.put<ExerciseDetails>(`${this.baseApiUrl}/exercises`, exercise);
     }
 }

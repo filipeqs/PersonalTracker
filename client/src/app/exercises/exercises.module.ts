@@ -7,9 +7,10 @@ import { ExerciseDetailsComponent } from './exercise-details/exercise-details.co
 import { ExerciseAddComponent } from './exercise-add/exercise-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
+import { ExerciseUpdateComponent } from './exercise-update/exercise-update.component';
 
 @NgModule({
-    declarations: [ExercisesComponent, ExerciseDetailsComponent, ExerciseAddComponent, ExerciseFormComponent],
+    declarations: [ExercisesComponent, ExerciseDetailsComponent, ExerciseAddComponent, ExerciseFormComponent, ExerciseUpdateComponent],
     imports: [CommonModule, ReactiveFormsModule, ExercisesRoutingModule],
 })
 export class ExercisesModule {}
