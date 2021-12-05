@@ -1,0 +1,28 @@
+<form (ngSubmit)="onCreateExercise()" [formGroup]="exerciseForm">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            [class.is-invalid]="name.touched && name.invalid"
+        />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+            <div *ngIf="name.errors?.required">Name is required</div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea
+            type="text"
+            class="form-control"
+            name="descriptio"
+            rows="4"
+            formControlName="description"
+        ></textarea>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!exerciseForm.valid || loading">
+        <span *ngIf="!loading">Create</span>
+        <span *ngIf="loading">Loading</span>
+    </button>
+</form>
