@@ -1,3 +1,8 @@
-<div *ngIf="exercise && !loading">{{ exercise.name }}</div>
+<div *ngIf="exercise && !loading">
+    <div>
+        {{ exercise.name }}
+    </div>
+    <button class="btn btn-light" routerLink="/exercises/edit/{{ exercise.id }}">Edit</button>
+</div>
 <div *ngIf="!exercise && !loading">No Exercise found</div>
 <div *ngIf="loading">Loading...</div>

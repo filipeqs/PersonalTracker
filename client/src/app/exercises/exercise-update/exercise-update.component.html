@@ -1,1 +1,4 @@
-<p>exercise-update works!</p>
+<div *ngIf="exercise">
+    <app-exercise-form [isEdit]="true" [exerciseToUpdate]="exercise"></app-exercise-form>
+</div>
+<div *ngIf="!exercise">No Exercise Found</div>

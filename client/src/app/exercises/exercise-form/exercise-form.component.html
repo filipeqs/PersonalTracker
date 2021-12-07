@@ -1,4 +1,4 @@
-<form (ngSubmit)="onCreateExercise()" [formGroup]="exerciseForm">
+<form (ngSubmit)="onExerciseFormSubmit()" [formGroup]="exerciseForm">
     <div class="mb-3">
         <label class="form-label">Name</label>
         <input
@@ -22,7 +22,7 @@
         ></textarea>
     </div>
     <button type="submit" class="btn btn-success" [disabled]="!exerciseForm.valid || loading">
-        <span *ngIf="!loading">Create</span>
+        <span *ngIf="!loading">{{ isEdit ? 'Edit' : 'Create' }}</span>
         <span *ngIf="loading">Loading</span>
     </button>
 </form>

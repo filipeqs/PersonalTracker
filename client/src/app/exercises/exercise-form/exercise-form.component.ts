@@ -11,13 +11,17 @@ import { ExercisesService } from '../exercises.service';
 })
 export class ExerciseFormComponent implements OnInit {
     @Input() isEdit = false;
-    @Input() exercise: ExerciseUpdate;
+    @Input() exerciseToUpdate: ExerciseUpdate;
     exerciseForm = new FormGroup({
         id: new FormControl(0, [Validators.required]),
         name: new FormControl('', [Validators.required]),
         description: new FormControl(''),
     });
     loading = false;
+
+    get id() {
+        return this.exerciseForm.get('id');
+    }
 
     get name() {
         return this.exerciseForm.get('name');
@@ -32,14 +36,15 @@ export class ExerciseFormComponent implements OnInit {
     ngOnInit(): void {
         if (this.isEdit) {
             this.exerciseForm.patchValue({
-                id: this.exercise.id,
-                name: this.exercise.name,
-                description: this.exercise.description,
+                id: this.exerciseToUpdate.id,
+                name: this.exerciseToUpdate.name,
+                description: this.exerciseToUpdate.description,
             });
         }
     }
 
-    onCreateExercise() {
+    onExerciseFormSubmit() {
+        this.loading = true;
         if (this.isEdit) {
             this.updateExercise();
         } else {
@@ -64,5 +69,21 @@ export class ExerciseFormComponent implements OnInit {
         });
     }
 
-    updateExercise() {}
+    updateExercise() {
+        const exercise: ExerciseUpdate = {
+            id: this.id.value,
+            name: this.name.value,
+            description: this.description.value,
+        };
+
+        this.exercisesService.updateExercise(exercise).subscribe({
+            next: () => {
+                this.loading = false;
+                this.router.navigateByUrl('/exercises');
+            },
+            error: (errors) => {
+                console.log(errors);
+            },
+        });
+    }
 }
